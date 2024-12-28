@@ -10,42 +10,114 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
+            padding-top: 40px;
+            background: white;
         }
 
         .header {
             background: white;
-            padding: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            width: 100%;
+            top: 40px;
+            left: 0;
+            margin-top: -40px;
+            padding-right: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
         }
 
         .logo {
-            width: 150px;
+            width: 180px;
             display: block;
             margin: 0 auto;
         }
 
-        .menu-btn {
+        .menu-toggle {
+            position: absolute;
+            right: 15px;
+            top: calc(100% + 15px);
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #333;
+            background: none;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .banca-btn {
             background: #2E73C7;
             color: white;
-            width: 90%;
-            padding: 12px;
             border: none;
             border-radius: 4px;
-            margin: 10px auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 12px 20px;
             font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: calc(100% - 200px);
+            justify-content: space-between;
+            margin-left: 15px;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100vh;
+            background: #2E73C7;
+            transition: 0.3s;
+            z-index: 1000;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .side-menu.active {
+            left: 0;
+        }
+
+        .menu-item {
+            color: white;
+            text-decoration: none;
+            padding: 12px 0;
+            display: block;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+        }
+
+        .menu-close {
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            background: none;
+            border: none;
         }
 
         .slider {
             width: 100%;
             overflow: hidden;
+            margin-bottom: 30px;
         }
 
         .slider img {
             width: 100%;
-            height: auto;
+            height: 400px;
+            display: block;
+            object-fit: cover;
+            object-position: center;
         }
 
         .tasas-info {
@@ -53,6 +125,7 @@
             color: white;
             padding: 15px;
             text-align: center;
+            margin-top: 30px;
         }
 
         .tasas-info h3 {
@@ -93,19 +166,210 @@
             justify-content: center;
             gap: 5px;
         }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 600px;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .swiper-pagination {
+            bottom: 10px !important;
+        }
+
+        .liston-mobile {
+            width: 100%;  /* Ancho completo */
+            height: auto;  /* Altura automática según la imagen */
+            display: block;  /* Para eliminar espacios extra */
+            margin: 20px 0;  /* Margen arriba y abajo */
+        }
+
+        .liston-mobile img {
+            width: 100%;  /* La imagen ocupa todo el ancho */
+            height: auto;  /* Altura proporcional */
+            display: block;
+        }
+
+        .nfl-section {
+            width: 100%;
+            padding: 15px;
+            background: #f5f5f5;
+            margin-top: 20px;
+        }
+
+        .nfl-section p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .nfl-section .links {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .nfl-section a {
+            color: #666;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .video-section {
+            width: 100%;
+            padding: 20px;
+            background: white;
+            margin-top: 20px;
+        }
+
+        .video-title {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Aspecto 16:9 */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .pagomovil-section {
+            padding: 30px 20px;
+            background: white;
+            text-align: center;
+        }
+
+        .pagomovil-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .pagomovil-steps {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+            margin-top: 8px;
+        }
+
+        .step-text {
+            font-size: 16px;
+            color: #333;
+            flex: 1;
+        }
+
+        .video-container {
+            margin-top: 20px;
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <img src="images/logonuevo.png" alt="BDV" class="logo">
-        <button class="menu-btn" id="bancaBtn">
+        <div class="header-top">
+            <img src="images/logonuevo.png" alt="BDV" class="logo">
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <button class="banca-btn">
             Banca en línea
-            <i class="fas fa-chevron-right"></i>
+            <i class="fas fa-chevron-down"></i>
         </button>
     </div>
 
+    <div class="side-menu">
+        <button class="menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#" class="menu-item">SomosBDV</a>
+        <a href="#" class="menu-item">Para ti</a>
+        <a href="#" class="menu-item">Para tu empresa</a>
+    </div>
+
     <div class="slider">
-        <img src="images/banner1.png" alt="Banner">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="images/logosmobile (1).jpg" alt="Banner 1">
+                </div>
+                <div class="swiper-slide">
+                    <img src="images/logosmobile (2).jpg" alt="Banner 2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="images/logosmobile (3).jpg" alt="Banner 3">
+                </div>
+                <div class="swiper-slide">
+                    <img src="images/logosmobile (4).jpg" alt="Banner 4">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <div class="liston-mobile">
+        <img src="images/liston mobile.png" alt="Listón BDV">
     </div>
 
     <div class="tasas-info">
@@ -115,6 +379,18 @@
         <p>Compra: $ 51,7659 / € 53,8593</p>
         <h3>Índice de inversión (IDI)</h3>
         <p>0,25308077</p>
+    </div>
+
+    <div class="video-section">
+        <h3 class="video-title">¿Cómo funciona el Hub BDV Innova?</h3>
+        <div class="video-container">
+            <iframe 
+                src="https://youtube.com/shorts/xW50zijzwqw?si=6S4aTlQ1cTF_xQnT" 
+                title="Hub BDV Innova" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
     </div>
 
     <div class="servicios">
@@ -130,9 +406,57 @@
         <!-- Otros servicios igual -->
     </div>
 
+    <div class="overlay"></div>
+
+    <div class="pagomovil-section">
+        <h2 class="pagomovil-title">Al usar PagomóvilBDV en los comercios afiliados, tu pago puede salir gratis</h2>
+        
+        <div class="pagomovil-steps">
+            <div class="step-item">
+                <div class="step-dot"></div>
+                <div class="step-text">Realiza tu PagomóvilBDV con QR desde BDVApp</div>
+            </div>
+            <div class="step-item">
+                <div class="step-dot"></div>
+                <div class="step-text">Ubica los comercios afiliados y participa por el reintegro de tu compra</div>
+            </div>
+        </div>
+
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/shorts/xW50zijzwqw" 
+                title="Paga y Pégala con el Banco de Venezuela" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
     <script>
-        document.getElementById('bancaBtn').addEventListener('click', () => {
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.side-menu').classList.add('active');
+            document.querySelector('.overlay').classList.add('active');
+        });
+
+        document.querySelector('.menu-close').addEventListener('click', () => {
+            document.querySelector('.side-menu').classList.remove('active');
+            document.querySelector('.overlay').classList.remove('active');
+        });
+
+        document.querySelector('.banca-btn').addEventListener('click', () => {
             window.location.href = 'mobile.html';
+        });
+
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            }
         });
     </script>
 </body>
