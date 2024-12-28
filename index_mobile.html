@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Venezuela - Móvil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background: white;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            width: 150px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .menu-btn {
+            background: #2E73C7;
+            color: white;
+            width: 90%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            margin: 10px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .slider {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .slider img {
+            width: 100%;
+            height: auto;
+        }
+
+        .tasas-info {
+            background: #BB1B47;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .tasas-info h3 {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .servicios {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .servicio-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .servicio-icon {
+            width: 40px;
+            margin: 0 auto 10px;
+        }
+
+        .servicio-card h3 {
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .servicio-link {
+            color: #2E73C7;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="images/logonuevo.png" alt="BDV" class="logo">
+        <button class="menu-btn" id="bancaBtn">
+            Banca en línea
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="slider">
+        <img src="images/banner1.png" alt="Banner">
+    </div>
+
+    <div class="tasas-info">
+        <h3>Mesa de cambio (USD-EUR)</h3>
+        <p>BCV: $ 51,7659 / € 53,8593</p>
+        <h3>Menudeo (USD-EUR)</h3>
+        <p>Compra: $ 51,7659 / € 53,8593</p>
+        <h3>Índice de inversión (IDI)</h3>
+        <p>0,25308077</p>
+    </div>
+
+    <div class="servicios">
+        <div class="servicio-card">
+            <img src="images/emprendedor.png" alt="Emprendedor" class="servicio-icon">
+            <h3>Quiero ser emprendedor</h3>
+            <p>Impulsa tu negocio con nosotros</p>
+            <a href="#" class="servicio-link">
+                Conoce más
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <!-- Otros servicios igual -->
+    </div>
+
+    <script>
+        document.getElementById('bancaBtn').addEventListener('click', () => {
+            window.location.href = 'mobile.html';
+        });
+    </script>
+</body>
+</html> 

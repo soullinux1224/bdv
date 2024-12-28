@@ -475,6 +475,12 @@
     </style>
 </head>
 <body>
+    <script>
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            window.location.href = 'index_mobile.html';
+        }
+    </script>
+
     <div class="institutional-header">
         <div class="container">
             <img src="images/logo bolivariano.jpg" alt="Logo Bolivariano" class="logo-left">
@@ -670,6 +676,16 @@
                 el: '.swiper-pagination',
                 clickable: true,
             },
+        });
+
+        document.querySelector('.banca-linea-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+                window.location.href = 'mobile.html';
+            } else {
+                window.location.href = 'bdvenlinea.html';
+            }
         });
     </script>
 </body>
