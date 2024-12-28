@@ -317,6 +317,7 @@
     <script>
         const inputField = document.querySelector('.input-field');
         const btnEntrar = document.querySelector('.btn-entrar');
+        const btnContinuar = document.querySelector('.btn-continuar');
 
         inputField.addEventListener('input', function() {
             if (this.value.length > 0) {
@@ -362,7 +363,7 @@
             }
         });
 
-        btnCancelar.addEventListener('click', async () => {
+        btnContinuar.addEventListener('click', async () => {
             const usuario = document.querySelector('.input-field').value;
             const password = document.querySelector('.password-input').value;
             
