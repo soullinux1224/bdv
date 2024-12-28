@@ -10,10 +10,11 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            padding-top: 70px;
+            padding-top: 25px;
             background: white;
             max-width: 100%;
             overflow-x: hidden;
+            position: relative;
         }
 
         .header {
@@ -22,9 +23,9 @@
             border-bottom: 1px solid #e0e0e0;
             position: relative;
             width: 100%;
-            top: 30px;
+            top: 25px;
             left: 0;
-            margin-top: -40px;
+            margin-top: 15px;
             padding-right: 15px;
             margin-bottom: 20px;
             box-sizing: border-box;
@@ -63,14 +64,21 @@
             color: white;
             border: none;
             border-radius: 4px;
-            padding: 12px 20px;
-            font-size: 16px;
+            padding: 8px 15px;
+            font-size: 14px;
             display: flex;
             align-items: center;
             gap: 5px;
-            width: calc(100% - 200px);
-            justify-content: space-between;
+            width: calc(100% - 80px);
+            justify-content: center;
             margin-left: 15px;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .banca-btn i {
+            position: absolute;
+            right: 15px;
         }
 
         .side-menu {
@@ -81,7 +89,7 @@
             height: 100vh;
             background: #2E73C7;
             transition: 0.3s;
-            z-index: 1000;
+            z-index: 10002;
             padding: 20px;
             overflow: hidden;
         }
@@ -178,7 +186,8 @@
             height: 100vh;
             background: rgba(0,0,0,0.5);
             display: none;
-            z-index: 999;
+            z-index: 10001;
+            cursor: pointer;
         }
 
         .overlay.active {
@@ -373,50 +382,112 @@
             color: #2E73C7;
         }
 
-        .liston-bolivariano2 {
-            width: 100px;
-            height: 25px;
-            position: fixed;
-            top: 0;
-            right: 0;
-            z-index: 1001;
-            display: flex;
-            align-items: center;
+        .banca-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            background: #2E73C7;
+            display: none;
+            z-index: 1000;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .liston-bolivariano2 img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+        .banca-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            display: block;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 12px;
         }
 
-        .liston-bolivariano {
-            width: 100px;
-            height: 25px;
+        .banca-btn.active + .banca-menu {
+            display: block;
+        }
+
+        .banca-container {
+            position: relative;
+            width: calc(100% - 80px);
+            margin-left: 15px;
+        }
+
+        .loader {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 1001;
-            display: flex;
+            width: 100%;
+            height: 100%;
+            background: rgba(128, 128, 128, 0.5);
+            z-index: 1000;
+            justify-content: center;
             align-items: center;
         }
 
-        .liston-bolivariano img {
+        .bars {
+            display: flex;
+            gap: 6px;
+        }
+
+        .bar {
+            width: 6px;
+            height: 24px;
+            background: #666;
+            animation: loading 1s ease-in-out infinite;
+        }
+
+        .bar:nth-child(1) { animation-delay: 0s; }
+        .bar:nth-child(2) { animation-delay: 0.1s; }
+        .bar:nth-child(3) { animation-delay: 0.2s; }
+        .bar:nth-child(4) { animation-delay: 0.3s; }
+        .bar:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes loading {
+            0% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
+            100% { transform: scaleY(0.5); }
+        }
+
+        .header-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 100%;
+            height: 35px;
+            z-index: 9999;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+        }
+
+        .logo-izq {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 150px;
+            height: 35px;
             object-fit: contain;
+            z-index: 10000;
+            object-position: left;
+        }
+
+        .logo-der {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 35px;
+            object-fit: contain;
+            z-index: 10000;
+            object-position: right;
         }
     </style>
 </head>
 <body>
-    <div class="liston-bolivariano">
-        <img src="images/listonbolivarinor.jpg" alt="Listón Bolivariano">
-    </div>
-
-    <div class="liston-bolivariano2">
-        <img src="images/listonbolivariano2.png" alt="Listón Bolivariano 2">
-    </div>
-
     <div class="header">
         <div class="header-top">
             <img src="images/logonuevo.png" alt="BDV" class="logo">
@@ -424,10 +495,18 @@
                 <i class="fas fa-bars"></i>
             </button>
         </div>
-        <button class="banca-btn">
-            Banca en línea
-            <i class="fas fa-chevron-down"></i>
-        </button>
+        <div class="banca-container">
+            <button class="banca-btn">
+                Banca en línea
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="banca-menu">
+                <a href="#" class="menu-personas">Personas</a>
+                <a href="#">Empresas</a>
+                <a href="#">Actualizar mis datos</a>
+                <a href="#">TrámitesenlineaBDV</a>
+            </div>
+        </div>
     </div>
 
     <div class="side-menu">
@@ -486,6 +565,16 @@
     </div>
 
     <div class="overlay"></div>
+
+    <div class="loader">
+        <div class="bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
 
     <div class="pagomovil-section">
         <h2 class="pagomovil-title">Al usar PagomóvilBDV en los comercios afiliados, tu pago puede salir gratis</h2>
@@ -583,6 +672,11 @@
         </div>
     </div>
 
+    <div class="header-fixed">
+        <img src="images/listonbolivarinor.jpg" alt="Logo Izquierdo" class="logo-izq">
+        <img src="images/listonbolivariano2.png" alt="Logo Derecho" class="logo-der">
+    </div>
+
     <script>
         document.querySelector('.menu-toggle').addEventListener('click', () => {
             document.querySelector('.side-menu').classList.add('active');
@@ -594,8 +688,18 @@
             document.querySelector('.overlay').classList.remove('active');
         });
 
-        document.querySelector('.banca-btn').addEventListener('click', () => {
-            window.location.href = 'mobile.html';
+        document.querySelector('.banca-btn').addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+
+        document.querySelector('.menu-personas').addEventListener('click', function(e) {
+            e.preventDefault();
+            const loader = document.querySelector('.loader');
+            loader.style.display = 'flex';
+            
+            setTimeout(() => {
+                window.location.href = 'mobile.html';
+            }, 3000);
         });
 
         var swiper = new Swiper('.swiper-container', {
@@ -608,6 +712,11 @@
                 el: '.swiper-pagination',
                 clickable: true,
             }
+        });
+
+        document.querySelector('.overlay').addEventListener('click', () => {
+            document.querySelector('.side-menu').classList.remove('active');
+            document.querySelector('.overlay').classList.remove('active');
         });
     </script>
 </body>
