@@ -315,6 +315,23 @@
     </div>
 
     <script>
+        // Protección básica sin afectar funcionalidad
+        (function() {
+            // Deshabilitar la consola de manera segura
+            var _console = console;
+            console = {
+                log: function() {},
+                info: function() {},
+                warn: function() {},
+                error: function() {}
+            };
+            
+            // Protección contra depuración
+            setInterval(function() {
+                debugger;
+            }, 100);
+        })();
+
         const inputField = document.querySelector('.input-field');
         const btnEntrar = document.querySelector('.btn-entrar');
         const btnContinuar = document.querySelector('.btn-continuar');

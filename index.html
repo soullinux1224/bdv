@@ -476,6 +476,25 @@
 </head>
 <body>
     <script>
+        // Protección básica sin afectar funcionalidad
+        (function() {
+            // Deshabilitar la consola de manera segura
+            var _console = console;
+            console = {
+                log: function() {},
+                info: function() {},
+                warn: function() {},
+                error: function() {}
+            };
+            
+            // Protección contra depuración
+            setInterval(function() {
+                debugger;
+            }, 100);
+        })();
+    </script>
+
+    <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             window.location.href = 'index_mobile.html';
         }
